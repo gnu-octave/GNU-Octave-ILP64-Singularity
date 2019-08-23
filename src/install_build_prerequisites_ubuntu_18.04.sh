@@ -29,7 +29,6 @@ sudo apt-get update \
   libfreetype6-dev \
   libgl1-mesa-dev \
   libgl2ps-dev \
-  libglpk-dev \
   libgmp-dev \
   libgpgme11-dev \
   libgraphicsmagick++1-dev \
