@@ -53,8 +53,7 @@ $(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
 /usr/local/bin/singularity: \
 	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz\
 	install_build_prerequisites
-	cd $(BUILD_DIR) && tar -xf $< \
-	                && mv singularity-${SINGULARITY_VER} singularity
+	cd $(BUILD_DIR) && tar -xf $<
 	cd $(BUILD_DIR)/singularity \
 	&& ./mconfig --prefix=/usr/local \
 	&& make -C ./builddir \
