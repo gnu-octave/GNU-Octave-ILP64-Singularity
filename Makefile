@@ -51,7 +51,7 @@ $(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
 
 /usr/local/bin/singularity: \
 	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz \
-	install_build_prerequisites
+	$(BUILD_DIR)/system_up_to_date
 	cd $(BUILD_DIR) && tar -xf $<
 	cd $(BUILD_DIR)/singularity \
 	&& ./mconfig --prefix=/usr/local \
@@ -70,7 +70,7 @@ $(ROOT_DIR)/GNU-Octave-enable-64:
 	git submodules init
 	git submodules update
 
-/usr/bin/octave-$(OCTAVE_VER): install_build_prerequisites \
+/usr/bin/octave-$(OCTAVE_VER): $(BUILD_DIR)/system_up_to_date \
 	$(ROOT_DIR)/GNU-Octave-enable-64
 	mkdir -p $(BUILD_DIR)/GNU-Octave-enable-64
 	./GNU-Octave-enable-64/Makefile_log.sh -j2 \
