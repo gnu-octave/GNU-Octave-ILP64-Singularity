@@ -75,7 +75,7 @@ $(ROOT_DIR)/GNU-Octave-enable-64:
 /usr/bin/octave-$(OCTAVE_VER): $(BUILD_DIR)/system_up_to_date \
 	$(ROOT_DIR)/GNU-Octave-enable-64
 	mkdir -p $(BUILD_DIR)/GNU-Octave-enable-64
-	./GNU-Octave-enable-64/Makefile_log.sh -j2 \
+	sudo ./GNU-Octave-enable-64/Makefile_log.sh -j2 \
 	  SRC_CACHE=$(SRC_CACHE) \
 	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
 	  INSTALL_DIR=/usr \
