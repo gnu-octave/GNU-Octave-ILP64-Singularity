@@ -22,7 +22,7 @@ all:
 
 UBUNTU_VER=18.04
 
-check_os:
+$(BUILD_DIR)/system_up_to_date:
 ifneq ($(shell lsb_release -si),Ubuntu)
 	@echo "This project is unlikely to work on other systems than Ubuntu $(UBUNTU_VER)."
 	exit 1
@@ -31,9 +31,8 @@ ifneq ($(shell lsb_release -sr),$(UBUNTU_VER))
 	@echo "This project is unlikely to work on other systems than Ubuntu $(UBUNTU_VER)."
 	exit 1
 endif
-
-install_build_prerequisites: check_os
 	./src/install_build_prerequisites_ubuntu_$(UBUNTU_VER).sh
+	touch $(BUILD_DIR)/system_up_to_date
 
 
 ################################################################################
@@ -51,7 +50,7 @@ $(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
 	wget https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VER}/singularity-${SINGULARITY_VER}.tar.gz
 
 /usr/local/bin/singularity: \
-	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz\
+	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz \
 	install_build_prerequisites
 	cd $(BUILD_DIR) && tar -xf $<
 	cd $(BUILD_DIR)/singularity \
