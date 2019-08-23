@@ -15,7 +15,6 @@ sudo apt-get update \
   gfortran \
   git \
   gnuplot-x11 \
-  golang \
   gperf \
   gzip \
   icoutils \
@@ -64,4 +63,5 @@ sudo apt-get update \
   transfig \
   uuid-dev \
   wget \
-  zlib1g-dev
+  zlib1g-dev \
+&& sudo snap install --classic go
