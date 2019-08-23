@@ -66,6 +66,8 @@ $(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
 #
 ################################################################################
 
+OCTAVE_VER=5.1.1
+
 $(ROOT_DIR)/GNU-Octave-enable-64:
 	git submodules init
 	git submodules update
@@ -76,7 +78,8 @@ $(ROOT_DIR)/GNU-Octave-enable-64:
 	./GNU-Octave-enable-64/Makefile_log.sh -j2 \
 	  SRC_CACHE=$(SRC_CACHE) \
 	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
-	  INSTALL_DIR=/usr
+	  INSTALL_DIR=/usr \
+	  OCTAVE_VER=stable
 
 
 ################################################################################
@@ -85,4 +88,5 @@ $(ROOT_DIR)/GNU-Octave-enable-64:
 #
 ################################################################################
 
-singularity_image: /usr/local/bin/singularity
+singularity_image: /usr/local/bin/singularity \
+	/usr/bin/octave-$(OCTAVE_VER)
