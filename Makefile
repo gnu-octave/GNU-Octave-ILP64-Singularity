@@ -79,7 +79,8 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 	  SRC_CACHE=$(SRC_CACHE) \
 	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
 	  INSTALL_DIR=/usr \
-	  OCTAVE_VER=stable
+	  OCTAVE_VER=stable \
+	  glpk
 
 
 ################################################################################
@@ -90,3 +91,5 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 
 singularity_image: /usr/local/bin/singularity \
 	/usr/bin/octave-$(OCTAVE_VER)
+	sudo singularity build GNU-Octave-64-Singularity-ubuntu_18.04.sif \
+	                   src/GNU-Octave-64-Singularity-ubuntu_18.04.def
