@@ -2,8 +2,14 @@ Bootstrap: library
 From: ubuntu:18.04
 
 %files
-    /usr/bin/octave*
-    /usr/bin/mkoctfile*
+    /usr/bin/octave
+    /usr/bin/octave-5.1.1
+    /usr/bin/octave-config
+    /usr/bin/octave-config-5.1.1
+    /usr/bin/octave-cli
+    /usr/bin/octave-cli-5.1.1
+    /usr/bin/mkoctfile
+    /usr/bin/mkoctfile-5.1.1
 %post
     echo "deb http://ftp.riken.go.jp/Linux/ubuntu/ bionic main universe" > /etc/apt/sources.list \
     && apt-get update \
