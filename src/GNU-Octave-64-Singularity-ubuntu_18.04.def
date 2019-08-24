@@ -10,12 +10,14 @@ From: ubuntu:18.04
     /usr/bin/octave-cli-5.1.1
     /usr/bin/mkoctfile
     /usr/bin/mkoctfile-5.1.1
+    /usr/lib/octave
 %post
     echo "deb http://ftp.riken.go.jp/Linux/ubuntu/ bionic main universe" > /etc/apt/sources.list \
     && apt-get update \
     && apt-get upgrade \
     && apt-get --no-install-recommends --yes install \
       build-essential \
+      libx11-6 \
     && apt-get clean \
     && rm -rf \
       /tmp/hsperfdata* \
