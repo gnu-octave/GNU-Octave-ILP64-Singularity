@@ -76,7 +76,7 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 	$(ROOT_DIR)/GNU-Octave-enable-64/Makefile
 	mkdir -p $(BUILD_DIR)/GNU-Octave-enable-64
 	cd GNU-Octave-enable-64 \
-	  && sudo ./Makefile_log.sh -j2 \
+	  && ./Makefile_log.sh -j2 \
 	  SRC_CACHE=$(SRC_CACHE) \
 	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
 	  INSTALL_DIR=/usr/local \
