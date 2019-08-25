@@ -170,7 +170,19 @@ From: ubuntu:18.04
     && apt-get update \
     && apt-get upgrade \
     && apt-get --no-install-recommends --yes install \
+      autoconf \
+      automake \
       build-essential \
+      gfortran \
+      libgraphicsmagick++-q16-12 \
+      libhdf5-100 \
+      libqscintilla2-qt5-13 \
+      libqt5core5a \
+      libqt5gui5 \
+      libqt5help5 \
+      libqt5network5 \
+      libqt5printsupport5 \
+      libqt5widgets5 \
       libx11-6 \
     && apt-get clean \
     && rm -rf \
