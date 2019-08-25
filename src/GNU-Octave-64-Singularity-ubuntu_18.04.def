@@ -203,10 +203,13 @@ From: ubuntu:18.04
       libsndfile1 \
       libtool \
       libx11-6 \
+      locales \
       texinfo \
       unzip \
       xz-utils \
       zip \
+    && locale-gen --purge "en_US.UTF-8" \
+    && dpkg-reconfigure locales \
     && apt-get clean \
     && rm -rf \
       /tmp/hsperfdata* \
