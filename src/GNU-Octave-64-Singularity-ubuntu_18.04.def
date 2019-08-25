@@ -173,23 +173,40 @@ From: ubuntu:18.04
       autoconf \
       automake \
       build-essential \
+      curl \
+      default-jre-headless \
+      gdb \
+      gnuplot-qt \
       gfortran \
+      info \
+      less \
       libcurl3-gnutls \
+      libfltk-gl1.3 \
       libfftw3-3 \
       libgl2ps1.4 \
       libglu1-mesa \
       libgraphicsmagick++-q16-12 \
       libhdf5-100 \
+      libportaudio2 \
+      libqhull7 \
       libqscintilla2-qt5-13 \
       libqt5core5a \
       libqt5gui5 \
       libqt5help5 \
       libqt5network5 \
+      libqt5opengl5 \
       libqt5printsupport5 \
+      libqt5sql5 \
       libqt5widgets5 \
       libqt5xml5 \
       libreadline7 \
+      libsndfile1 \
+      libtool \
       libx11-6 \
+      texinfo \
+      unzip \
+      xz-utils \
+      zip \
     && apt-get clean \
     && rm -rf \
       /tmp/hsperfdata* \
