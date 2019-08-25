@@ -49,12 +49,12 @@ $(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
 	cd $(SRC_CACHE) && \
 	wget https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VER}/singularity-${SINGULARITY_VER}.tar.gz
 
-/usr/local/bin/singularity: \
+/usr/bin/singularity: \
 	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz \
 	$(BUILD_DIR)/system_up_to_date
 	cd $(BUILD_DIR) && tar -xf $<
 	cd $(BUILD_DIR)/singularity \
-	&& ./mconfig --prefix=/usr/ \
+	&& ./mconfig --prefix=/usr \
 	&& make -C ./builddir \
 	&& sudo make -C ./builddir install
 
@@ -72,7 +72,7 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 	git submodule init
 	git submodule update
 
-/usr/bin/octave-$(OCTAVE_VER): $(BUILD_DIR)/system_up_to_date \
+/usr/local/bin/octave-$(OCTAVE_VER): $(BUILD_DIR)/system_up_to_date \
 	$(ROOT_DIR)/GNU-Octave-enable-64/Makefile
 	mkdir -p $(BUILD_DIR)/GNU-Octave-enable-64
 	cd GNU-Octave-enable-64 \
@@ -91,8 +91,8 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 #
 ################################################################################
 
-singularity_image: /usr/local/bin/singularity \
-	/usr/bin/octave-$(OCTAVE_VER)
+singularity_image: /usr/bin/singularity \
+	/usr/local/bin/octave-$(OCTAVE_VER)
 	sudo singularity build \
 	      GNU-Octave-64-Singularity-ubuntu_$(UBUNTU_VER).sif \
 	  src/GNU-Octave-64-Singularity-ubuntu_$(UBUNTU_VER).def
