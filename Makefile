@@ -80,7 +80,7 @@ $(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
 	  SRC_CACHE=$(SRC_CACHE) \
 	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
 	  INSTALL_DIR=/usr/local \
-	  SUDO_INSTALL=1 \
+	  SUDO_INSTALL=sudo \
 	  OCTAVE_VER=stable \
 	  glpk octave
 
