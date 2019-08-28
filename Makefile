@@ -1,98 +1,24 @@
 ################################################################################
-#
-# Build a GNU Octave singularity image.
-#
+##
+##  Building a GNU Octave singularity image using 64 bit libraries.
+##
 ################################################################################
 
-.EXPORT_ALL_VARIABLES:
+OCTAVE_VER ?= stable
 
-ROOT_DIR  ?= ${PWD}
-SRC_CACHE ?= $(ROOT_DIR)/source-cache
-BUILD_DIR ?= $(ROOT_DIR)/build
+all: build/gnu_octave_$(OCTAVE_VER).sif
 
-IGNORE := $(shell mkdir -p $(SRC_CACHE) $(BUILD_DIR))
+# Octave build preparation
+build/01_build_openblas.sif:     build/00_ubuntu_build_image.sif
+build/02_build_suitesparse.sif:  build/01_build_openblas.sif
+build/03_build_arpack_ng.sif:    build/02_build_suitesparse.sif
+build/04_build_qrupdate.sif:     build/03_build_arpack_ng.sif
+build/05_build_glpk.sif:         build/04_build_qrupdate.sif
 
-all:
+# Octave builds
+build/06_build_octave_stable.sif:  build/05_build_glpk.sif
+build/gnu_octave_stable.sif:       build/06_build_octave_stable.sif
 
-################################################################################
-#
-# Build rules for Ubuntu (https://ubuntu.com/).
-#
-################################################################################
-
-UBUNTU_VER=18.04
-
-$(BUILD_DIR)/system_up_to_date:
-ifneq ($(shell lsb_release -si),Ubuntu)
-	@echo "This project is unlikely to work on other systems than Ubuntu $(UBUNTU_VER)."
-	exit 1
-endif
-ifneq ($(shell lsb_release -sr),$(UBUNTU_VER))
-	@echo "This project is unlikely to work on other systems than Ubuntu $(UBUNTU_VER)."
-	exit 1
-endif
-	./src/install_build_prerequisites_ubuntu_$(UBUNTU_VER).sh
-	touch $(BUILD_DIR)/system_up_to_date
-
-
-################################################################################
-#
-# Build rules for singularity (https://sylabs.io/).
-#
-################################################################################
-
-SINGULARITY_VER=3.3.0
-
-singularity: /usr/local/bin/singularity
-
-$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz:
-	cd $(SRC_CACHE) && \
-	wget https://github.com/sylabs/singularity/releases/download/v${SINGULARITY_VER}/singularity-${SINGULARITY_VER}.tar.gz
-
-/usr/bin/singularity: \
-	$(SRC_CACHE)/singularity-${SINGULARITY_VER}.tar.gz \
-	$(BUILD_DIR)/system_up_to_date
-	cd $(BUILD_DIR) && tar -xf $<
-	cd $(BUILD_DIR)/singularity \
-	&& ./mconfig --prefix=/usr \
-	&& make -C ./builddir \
-	&& sudo make -C ./builddir install
-
-
-################################################################################
-#
-# Build rules for GNU Octave enable 64
-# (https://github.com/octave-de/GNU-Octave-enable-64).
-#
-################################################################################
-
-OCTAVE_VER=5.1.1
-
-$(ROOT_DIR)/GNU-Octave-enable-64/Makefile:
-	git submodule init
-	git submodule update
-
-/usr/local/bin/octave-$(OCTAVE_VER): $(BUILD_DIR)/system_up_to_date \
-	$(ROOT_DIR)/GNU-Octave-enable-64/Makefile
-	mkdir -p $(BUILD_DIR)/GNU-Octave-enable-64
-	cd GNU-Octave-enable-64 \
-	  && ./Makefile_log.sh -j2 \
-	  SRC_CACHE=$(SRC_CACHE) \
-	  BUILD_DIR=$(BUILD_DIR)/GNU-Octave-enable-64 \
-	  INSTALL_DIR=/usr/local \
-	  SUDO_INSTALL=sudo \
-	  OCTAVE_VER=stable \
-	  glpk octave
-
-
-################################################################################
-#
-# Build rules for the final singularity image.
-#
-################################################################################
-
-singularity_image: /usr/bin/singularity \
-	/usr/local/bin/octave-$(OCTAVE_VER)
-	sudo singularity build \
-	      GNU-Octave-64-Singularity-ubuntu_$(UBUNTU_VER).sif \
-	  src/GNU-Octave-64-Singularity-ubuntu_$(UBUNTU_VER).def
+build/%.sif: src/%.def
+	mkdir -p build
+	sudo singularity build $@ $<
