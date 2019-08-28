@@ -12,6 +12,7 @@ From: build/03_build_arpack_ng.sif
           LAPACK=""           \
           BLAS="-lopenblas"   \
           FFLAGS="-L/usr/local/lib -fdefault-integer-8" \
+    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib \
     && make test              \
           PREFIX=/usr/local   \
           LAPACK=""           \
