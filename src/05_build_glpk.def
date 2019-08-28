@@ -1,0 +1,16 @@
+Bootstrap: localimage
+From: build/04_build_qrupdate.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "https://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz" \
+    && tar -xf glpk-4.65.tar.gz \
+    && cd      glpk-4.65        \
+    && ./configure --with-gmp              \
+                   --prefix=/usr/local     \
+                   --libdir=/usr/local/lib \
+    && make -j4     \
+    && make check   \
+    && make install \
+    && rm -rf /tmp/build

@@ -1,0 +1,23 @@
+Bootstrap: localimage
+From: build/01_build_openblas.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "http://faculty.cse.tamu.edu/davis/SuiteSparse/SuiteSparse-5.4.0.tar.gz" \
+    && tar -xf SuiteSparse-5.4.0.tar.gz \
+    && cd SuiteSparse \
+    && make -j4 library \
+                LAPACK= \
+                BLAS=-lopenblas \
+                UMFPACK_CONFIG=-D'LONGBLAS=long' \
+                CHOLMOD_CONFIG=-D'LONGBLAS=long' \
+                LDFLAGS='-L/usr/local/lib -L/tmp/build/SuiteSparse/lib' \
+                CMAKE_OPTIONS=-D'CMAKE_INSTALL_PREFIX=/usr/local' \
+    && make install \
+            INSTALL=/usr/local \
+            INSTALL_DOC=/tmp/doc \
+            LAPACK= \
+            BLAS=-lopenblas \
+            LDFLAGS='-L/usr/local/lib -L/tmp/build/SuiteSparse/lib' \
+    && rm -rf /tmp/build

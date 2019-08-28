@@ -1,0 +1,22 @@
+Bootstrap: localimage
+From: build/05_build_glpk.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "https://octave.mround.de/octave-5.1.1.tar.gz" \
+    && tar -xf octave-5.1.1.tar.gz \
+    && cd      octave-5.1.1        \
+    && ./configure                          \
+           CPPFLAGS='-I/usr/local/include'  \
+           LDFLAGS='-L/usr/local/lib'       \
+           F77_INTEGER_8_FLAG='-fdefault-integer-8' \
+           LD_LIBRARY_PATH='/usr/local/lib' \
+           --prefix=/usr/local              \
+           --libdir='/usr/local/lib'        \
+           --enable-64                      \
+           --with-blas='-lopenblas'         \
+    && make -j4 \
+    && make check LD_LIBRARY_PATH='/usr/local/lib' \
+    && make install \
+    && rm -rf /tmp/build

@@ -1,0 +1,12 @@
+Bootstrap: localimage
+From: build/00_ubuntu_build_image.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "https://github.com/xianyi/OpenBLAS/archive/v0.3.7.zip" \
+    && unzip -q   v0.3.7.zip \
+    && cd OpenBLAS-0.3.7     \
+    && make -j4 BINARY=64 INTERFACE64=1 DYNAMIC_ARCH=1 CONSISTENT_FPCSR=1 \
+    && make install PREFIX=/usr/local \
+    && rm -rf /tmp/build

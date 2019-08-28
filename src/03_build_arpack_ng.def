@@ -1,0 +1,21 @@
+Bootstrap: localimage
+From: build/02_build_suitesparse.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "https://github.com/opencollab/arpack-ng/archive/3.7.0.tar.gz" \
+    && tar -xf      3.7.0.tar.gz \
+    && cd arpack-ng-3.7.0 \
+    && ./bootstrap \
+    && ./configure --prefix=/usr/local \
+                   --libdir=/usr/local/lib \
+                   --with-blas='-lopenblas' \
+                   --with-lapack='' \
+                   INTERFACE64=1 \
+                   LT_SYS_LIBRARY_PATH=/usr/local/lib \
+                   LDFLAGS='-L/usr/local/lib' \
+    && make -j4     \
+    && make check   \
+    && make install \
+    && rm -rf /tmp/build
