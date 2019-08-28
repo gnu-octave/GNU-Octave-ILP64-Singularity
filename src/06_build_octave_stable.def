@@ -16,6 +16,10 @@ From: build/05_build_glpk.sif
            --libdir='/usr/local/lib'        \
            --enable-64                      \
            --with-blas='-lopenblas'         \
+           --without-fltk                   \
+           --without-portaudio              \
+           --without-qt                     \
+           --without-sndfile                \
     && make -j4 \
     && make check LD_LIBRARY_PATH='/usr/local/lib' \
     && make install \

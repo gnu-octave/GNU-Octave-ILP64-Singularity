@@ -144,8 +144,8 @@ Stage: final
     /usr/local/lib/libmongoose.so
     /usr/local/lib/libmongoose.so.2
     /usr/local/lib/libmongoose.so.2.0.3
-    /usr/local/lib/libopenblas-r0.3.7.a
-    /usr/local/lib/libopenblas-r0.3.7.so
+    /usr/local/lib/libopenblasp-r0.3.7.a
+    /usr/local/lib/libopenblasp-r0.3.7.so
     /usr/local/lib/libopenblas.a
     /usr/local/lib/libopenblas.so
     /usr/local/lib/libopenblas.so.0
@@ -184,6 +184,7 @@ Stage: final
       curl \
       default-jre-headless \
       gdb \
+      ghostscript \
       gnuplot-qt \
       gfortran \
       info \
@@ -195,20 +196,8 @@ Stage: final
       libglu1-mesa \
       libgraphicsmagick++-q16-12 \
       libhdf5-100 \
-      libportaudio2 \
       libqhull7 \
-      libqscintilla2-qt5-13 \
-      libqt5core5a \
-      libqt5gui5 \
-      libqt5help5 \
-      libqt5network5 \
-      libqt5opengl5 \
-      libqt5printsupport5 \
-      libqt5sql5 \
-      libqt5widgets5 \
-      libqt5xml5 \
       libreadline7 \
-      libsndfile1 \
       libtool \
       libx11-6 \
       locales \
