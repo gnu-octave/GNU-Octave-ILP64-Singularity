@@ -185,12 +185,11 @@ Stage: final
       default-jre-headless \
       gdb \
       ghostscript \
-      gnuplot-qt \
+      gnuplot-x11 \
       gfortran \
       info \
       less \
       libcurl3-gnutls \
-      libfltk-gl1.3 \
       libfftw3-3 \
       libgl2ps1.4 \
       libglu1-mesa \
@@ -199,7 +198,6 @@ Stage: final
       libqhull7 \
       libreadline7 \
       libtool \
-      libx11-6 \
       locales \
       texinfo \
       unzip \
