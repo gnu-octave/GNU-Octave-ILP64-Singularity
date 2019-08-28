@@ -16,6 +16,7 @@ From: build/02_build_suitesparse.sif
                    LT_SYS_LIBRARY_PATH=/usr/local/lib \
                    LDFLAGS='-L/usr/local/lib' \
     && make -j4     \
+    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib \
     && make check   \
     && make install \
     && rm -rf /tmp/build
