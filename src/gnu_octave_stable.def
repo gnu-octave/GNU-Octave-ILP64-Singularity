@@ -211,3 +211,35 @@ Stage: final
       /var/*/apt/*/partial \
       /var/lib/apt/lists/* \
       /var/log/apt/term*
+
+%runscript
+    octave-cli "$@"
+
+%labels
+    maintainer Kai T. Ohlhus <k.ohlhus@gmail.com>
+    license GPL-3.0-or-later
+    org.label-schema.version "stable"
+    org.label-schema.name "GNU Octave"
+    org.label-schema.description "GNU Octave is a high-level interpreted language, primarily intended for numerical computations."
+    org.label-schema.url "https://www.gnu.org/software/octave/"
+    org.label-schema.vcs-url "https://github.com/siko1056/GNU-Octave-64-Singularity"
+
+%help
+    GNU Octave is a high-level interpreted language, primarily intended for numerical computations.
+    This is the Singularity image version of this software.
+
+    Start the GNU Octave interpreter with
+
+        singularity run gnu_octave_stable.sif
+
+    Get more help with
+
+        singularity run gnu_octave_stable.sif --help
+
+    Copyright (C) 2019 John W. Eaton and others.
+    This is free software; see the source code for copying conditions.
+    There is ABSOLUTELY NO WARRANTY; not even for MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.
+
+    Additional information about Octave is available at https://www.octave.org.
+    Report problems at https://github.com/siko1056/GNU-Octave-64-Singularity.
