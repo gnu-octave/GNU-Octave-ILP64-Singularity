@@ -21,4 +21,6 @@ build/gnu_octave_stable.sif:       build/06_build_octave_stable.sif
 
 build/%.sif: src/%.def
 	mkdir -p build
-	sudo singularity build $@ $<
+	mkdir -p log/build
+	sudo singularity build $@ $< \
+	  2>&1 | tee log/$@-$(shell date +%F_%H-%M-%S).log.txt
