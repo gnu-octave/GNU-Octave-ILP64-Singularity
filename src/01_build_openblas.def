@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: build/00_ubuntu_build_image.sif
+From: 00_build_ubuntu.sif
 
 %post
     mkdir -p /tmp/build \

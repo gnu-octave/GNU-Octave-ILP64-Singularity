@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: build/02_build_suitesparse.sif
+From: 02_build_suitesparse.sif
 
 %post
     mkdir -p /tmp/build \

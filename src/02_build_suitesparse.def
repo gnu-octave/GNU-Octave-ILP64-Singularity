@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: build/01_build_openblas.sif
+From: 01_build_openblas.sif
 
 %post
     mkdir -p /tmp/build \

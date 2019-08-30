@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: build/04_build_qrupdate.sif
+From: 04_build_qrupdate.sif
 
 %post
     mkdir -p /tmp/build \

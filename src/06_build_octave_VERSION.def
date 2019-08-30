@@ -1,12 +1,12 @@
 Bootstrap: localimage
-From: build/05_build_glpk.sif
+From: 05_build_glpk.sif
 
 %post
     mkdir -p /tmp/build \
     && cd    /tmp/build \
-    && wget "https://octave.mround.de/octave-5.1.1.tar.gz" \
-    && tar -xf octave-5.1.1.tar.gz \
-    && cd      octave-5.1.1        \
+    && wget "https://ftpmirror.gnu.org/octave/octave-VERSION.tar.gz" \
+    && tar -xf octave-VERSION.tar.gz \
+    && cd      octave-VERSION        \
     && ./configure                          \
            CPPFLAGS='-I/usr/local/include'  \
            LDFLAGS='-L/usr/local/lib'       \
