@@ -7,8 +7,8 @@
 OCTAVE_VER        ?= 5.1.0
 OCTAVE_STABLE_VER ?= 5.1.1
 
-BUILD_DIR ?= $(pwd)/build
-LOG_DIR   ?= $(pwd)/log
+BUILD_DIR ?= $(shell pwd)/build
+LOG_DIR   ?= $(shell pwd)/log
 
 all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
