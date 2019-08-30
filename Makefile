@@ -7,8 +7,8 @@
 OCTAVE_VER        ?= 5.1.0
 OCTAVE_STABLE_VER ?= 5.1.1
 
-BUILD_DIR ?= build
-LOG_DIR   ?= log/$(BUILD_DIR)
+BUILD_DIR ?= $(pwd)/build
+LOG_DIR   ?= $(pwd)/log
 
 all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
@@ -50,7 +50,7 @@ $(BUILD_DIR)/%.def: src/%.def | $(BUILD_DIR)
 $(BUILD_DIR)/%.sif: $(BUILD_DIR)/%.def | $(BUILD_DIR) $(LOG_DIR)
 	cd $(BUILD_DIR) \
 	  && sudo singularity build $(notdir $@) $(notdir $<) \
-	  2>&1 | tee log/$@-$(shell date +%F_%H-%M-%S).log.txt
+	  2>&1 | tee $(LOG_DIR)/$(notdir $@)-$(shell date +%F_%H-%M-%S).log.txt
 
 export_def: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER)_all.def
 
