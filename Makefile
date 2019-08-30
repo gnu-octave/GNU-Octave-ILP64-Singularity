@@ -48,7 +48,8 @@ $(BUILD_DIR)/%.def: src/%.def | $(BUILD_DIR)
 	cp $< $@
 
 $(BUILD_DIR)/%.sif: $(BUILD_DIR)/%.def | $(BUILD_DIR) $(LOG_DIR)
-	sudo singularity build $@ $< \
+	cd $(BUILD_DIR) \
+	  && sudo singularity build $(notdir $@) $(notdir $<) \
 	  2>&1 | tee log/$@-$(shell date +%F_%H-%M-%S).log.txt
 
 export_def: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER)_all.def
