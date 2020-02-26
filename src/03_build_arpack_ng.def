@@ -8,15 +8,15 @@ From: 02_build_suitesparse.sif
     && tar -xf      3.7.0.tar.gz \
     && cd arpack-ng-3.7.0 \
     && ./bootstrap \
-    && ./configure --prefix=/usr/local \
-                   --libdir=/usr/local/lib \
+    && ./configure --prefix=/usr \
+                   --libdir=/usr/lib \
                    --with-blas='-lopenblas' \
                    --with-lapack='' \
                    INTERFACE64=1 \
-                   LT_SYS_LIBRARY_PATH=/usr/local/lib \
-                   LDFLAGS='-L/usr/local/lib' \
+                   LT_SYS_LIBRARY_PATH=/usr/lib \
+                   LDFLAGS='-L/usr/lib' \
     && make -j4     \
-    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib \
+    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib \
     && make check   \
     && make install \
     && rm -rf /tmp/build

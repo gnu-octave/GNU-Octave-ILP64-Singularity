@@ -8,19 +8,19 @@ From: 03_build_arpack_ng.sif
     && tar -xf qrupdate-1.1.2.tar.gz \
     && cd      qrupdate-1.1.2 \
     && make -j4               \
-          PREFIX=/usr/local   \
+          PREFIX=/usr         \
           LAPACK=""           \
           BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/local/lib -fdefault-integer-8" \
-    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib \
+          FFLAGS="-L/usr/lib -fdefault-integer-8" \
+    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib \
     && make test              \
-          PREFIX=/usr/local   \
+          PREFIX=/usr         \
           LAPACK=""           \
           BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/local/lib -fdefault-integer-8" \
+          FFLAGS="-L/usr/lib -fdefault-integer-8" \
     && make install           \
-          PREFIX=/usr/local   \
+          PREFIX=/usr         \
           LAPACK=""           \
           BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/local/lib -fdefault-integer-8" \
+          FFLAGS="-L/usr/lib -fdefault-integer-8" \
     && rm -rf /tmp/build

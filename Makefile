@@ -4,12 +4,10 @@
 ##
 ################################################################################
 
-# Define the default Octave version OCTAVE_VER to be build and the latest
-# stable version, that must be obtained from another source.
-# Note, that the version must be available at https://ftpmirror.gnu.org/octave.
+# Define the default Octave version OCTAVE_VER which must be available at
+# https://ftpmirror.gnu.org/octave.
 
-OCTAVE_VER        ?= 5.1.0
-OCTAVE_STABLE_VER ?= 5.1.1
+OCTAVE_VER ?= 5.2.0
 
 # Set the default build and log path.
 
@@ -20,10 +18,6 @@ LOG_DIR   ?= $(shell pwd)/log
 # decrease the build time in case of changes.
 
 all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
-
-# Rule to create a single definition file from the source directory.
-
-export_def: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER)_all.def
 
 ################################################################################
 # Directory creation rules.
@@ -52,10 +46,6 @@ $(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).def: \
 	 src/06_build_octave_VERSION.def | $(BUILD_DIR)
 	cp $< $@
 	sed -i -e 's/VERSION/$(OCTAVE_VER)/g' $@
-ifeq ($(OCTAVE_VER),$(OCTAVE_STABLE_VER))
-	# Obtain the latest stable version from another source.
-	sed -i -e 's/ftpmirror.gnu.org\/octave/octave.mround.de/g' $@
-endif
 
 # Specialization for the final Octave deployment, insert the desired version.
 
@@ -63,33 +53,6 @@ $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).def: \
 	src/gnu_octave_VERSION.def | $(BUILD_DIR)
 	cp $< $@
 	sed -i -e 's/VERSION/$(OCTAVE_VER)/g' $@
-
-$(BUILD_DIR)/gnu_octave_$(OCTAVE_VER)_all.def: \
-	$(BUILD_DIR)/00_build_ubuntu.def \
-	$(BUILD_DIR)/01_build_openblas.def \
-	$(BUILD_DIR)/02_build_suitesparse.def \
-	$(BUILD_DIR)/03_build_arpack_ng.def \
-	$(BUILD_DIR)/04_build_qrupdate.def \
-	$(BUILD_DIR)/05_build_glpk.def \
-	$(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).def \
-	$(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).def \
-	| $(BUILD_DIR)
-	head -n  2 $(BUILD_DIR)/00_build_ubuntu.def      >  $@
-	echo -e "Stage: build\n\n%post\n"                >> $@
-	tail -n +5 $(BUILD_DIR)/00_build_ubuntu.def      >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/01_build_openblas.def    >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/02_build_suitesparse.def >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/03_build_arpack_ng.def   >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/04_build_qrupdate.def    >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/05_build_glpk.def        >> $@
-	sed -i '$${s/$$/ \\/}' $@
-	tail -n +5 $(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).def >> $@
-	tail -n +9 $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).def      >> $@
 
 ################################################################################
 # Singularity image file (sif) rules and dependencies.
