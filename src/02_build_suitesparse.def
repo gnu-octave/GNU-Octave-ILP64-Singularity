@@ -12,12 +12,12 @@ From: 01_build_openblas.sif
                 BLAS=-lopenblas \
                 UMFPACK_CONFIG=-D'LONGBLAS=long' \
                 CHOLMOD_CONFIG=-D'LONGBLAS=long' \
-                LDFLAGS='-L/usr/lib -L/tmp/build/SuiteSparse/lib' \
+                LDFLAGS='-L/usr/lib -L/tmp/build/SuiteSparse-5.7.1/lib' \
                 CMAKE_OPTIONS=-D'CMAKE_INSTALL_PREFIX=/usr' \
     && make install \
             INSTALL=/usr \
             INSTALL_DOC=/tmp/doc \
             LAPACK= \
             BLAS=-lopenblas \
-            LDFLAGS='-L/usr/lib -L/tmp/build/SuiteSparse/lib' \
+            LDFLAGS='-L/usr/lib -L/tmp/build/SuiteSparse-5.7.1/lib' \
     && rm -rf /tmp/build
