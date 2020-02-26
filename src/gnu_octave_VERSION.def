@@ -1,228 +1,18 @@
 Bootstrap: localimage
 From: 06_build_octave_VERSION.sif
-Stage: build
 
 %post
-
-    touch /usr/bin/octave
-
-
-Bootstrap: library
-From: ubuntu:18.04
-Stage: final
-
-%files from build
-
-    /usr/bin/glpsol
-    /usr/bin/mkoctfile
-    /usr/bin/mkoctfile-VERSION
-    /usr/bin/mongoose
-    /usr/bin/octave
-    /usr/bin/octave-VERSION
-    /usr/bin/octave-cli
-    /usr/bin/octave-cli-VERSION
-    /usr/bin/octave-config
-    /usr/bin/octave-config-VERSION
-    /usr/include/GraphBLAS.h
-    /usr/include/Mongoose.hpp
-    /usr/include/RBio.h
-    /usr/include/SuiteSparseQR.hpp
-    /usr/include/SuiteSparseQR_C.h
-    /usr/include/SuiteSparseQR_definitions.h
-    /usr/include/SuiteSparse_config.h
-    /usr/include/amd.h
-    /usr/include/arpack
-    /usr/include/btf.h
-    /usr/include/camd.h
-    /usr/include/cblas.h
-    /usr/include/ccolamd.h
-    /usr/include/cholmod.h
-    /usr/include/cholmod_blas.h
-    /usr/include/cholmod_camd.h
-    /usr/include/cholmod_check.h
-    /usr/include/cholmod_cholesky.h
-    /usr/include/cholmod_complexity.h
-    /usr/include/cholmod_config.h
-    /usr/include/cholmod_core.h
-    /usr/include/cholmod_function.h
-    /usr/include/cholmod_gpu.h
-    /usr/include/cholmod_gpu_kernels.h
-    /usr/include/cholmod_io64.h
-    /usr/include/cholmod_matrixops.h
-    /usr/include/cholmod_modify.h
-    /usr/include/cholmod_partition.h
-    /usr/include/cholmod_supernodal.h
-    /usr/include/cholmod_template.h
-    /usr/include/colamd.h
-    /usr/include/cs.h
-    /usr/include/f77blas.h
-    /usr/include/glpk.h
-    /usr/include/klu.h
-    /usr/include/lapacke.h
-    /usr/include/lapacke_config.h
-    /usr/include/lapacke_mangling.h
-    /usr/include/lapacke_utils.h
-    /usr/include/ldl.h
-    /usr/include/metis.h
-    /usr/include/octave-VERSION
-    /usr/include/openblas_config.h
-    /usr/include/spqr.hpp
-    /usr/include/umfpack.h
-    /usr/include/umfpack_col_to_triplet.h
-    /usr/include/umfpack_defaults.h
-    /usr/include/umfpack_free_numeric.h
-    /usr/include/umfpack_free_symbolic.h
-    /usr/include/umfpack_get_determinant.h
-    /usr/include/umfpack_get_lunz.h
-    /usr/include/umfpack_get_numeric.h
-    /usr/include/umfpack_get_symbolic.h
-    /usr/include/umfpack_global.h
-    /usr/include/umfpack_load_numeric.h
-    /usr/include/umfpack_load_symbolic.h
-    /usr/include/umfpack_numeric.h
-    /usr/include/umfpack_qsymbolic.h
-    /usr/include/umfpack_report_control.h
-    /usr/include/umfpack_report_info.h
-    /usr/include/umfpack_report_matrix.h
-    /usr/include/umfpack_report_numeric.h
-    /usr/include/umfpack_report_perm.h
-    /usr/include/umfpack_report_status.h
-    /usr/include/umfpack_report_symbolic.h
-    /usr/include/umfpack_report_triplet.h
-    /usr/include/umfpack_report_vector.h
-    /usr/include/umfpack_save_numeric.h
-    /usr/include/umfpack_save_symbolic.h
-    /usr/include/umfpack_scale.h
-    /usr/include/umfpack_solve.h
-    /usr/include/umfpack_symbolic.h
-    /usr/include/umfpack_tictoc.h
-    /usr/include/umfpack_timer.h
-    /usr/include/umfpack_transpose.h
-    /usr/include/umfpack_triplet_to_col.h
-    /usr/include/umfpack_wsolve.h
-    /usr/lib/cmake
-    /usr/lib/libamd.so
-    /usr/lib/libamd.so.2
-    /usr/lib/libamd.so.2.4.6
-    /usr/lib/libarpack.a
-    /usr/lib/libarpack.la
-    /usr/lib/libarpack.so
-    /usr/lib/libarpack.so.2
-    /usr/lib/libarpack.so.2.1.0
-    /usr/lib/libbtf.so
-    /usr/lib/libbtf.so.1
-    /usr/lib/libbtf.so.1.2.6
-    /usr/lib/libcamd.so
-    /usr/lib/libcamd.so.2
-    /usr/lib/libcamd.so.2.4.6
-    /usr/lib/libccolamd.so
-    /usr/lib/libccolamd.so.2
-    /usr/lib/libccolamd.so.2.9.6
-    /usr/lib/libcholmod.so
-    /usr/lib/libcholmod.so.3
-    /usr/lib/libcholmod.so.3.0.13
-    /usr/lib/libcolamd.so
-    /usr/lib/libcolamd.so.2
-    /usr/lib/libcolamd.so.2.9.6
-    /usr/lib/libcxsparse.so
-    /usr/lib/libcxsparse.so.3
-    /usr/lib/libcxsparse.so.3.2.0
-    /usr/lib/libglpk.a
-    /usr/lib/libglpk.la
-    /usr/lib/libglpk.so
-    /usr/lib/libglpk.so.40
-    /usr/lib/libglpk.so.40.3.0
-    /usr/lib/libgraphblas.a
-    /usr/lib/libgraphblas.so
-    /usr/lib/libgraphblas.so.2
-    /usr/lib/libgraphblas.so.2.2.2
-    /usr/lib/libklu.so
-    /usr/lib/libklu.so.1
-    /usr/lib/libklu.so.1.3.8
-    /usr/lib/libldl.so
-    /usr/lib/libldl.so.2
-    /usr/lib/libldl.so.2.2.6
-    /usr/lib/libmetis.so
-    /usr/lib/libmongoose.a
-    /usr/lib/libmongoose.so
-    /usr/lib/libmongoose.so.2
-    /usr/lib/libmongoose.so.2.0.3
-    /usr/lib/libopenblasp-r0.3.7.a
-    /usr/lib/libopenblasp-r0.3.7.so
-    /usr/lib/libopenblas.a
-    /usr/lib/libopenblas.so
-    /usr/lib/libopenblas.so.0
-    /usr/lib/libqrupdate.a
-    /usr/lib/libqrupdate.so
-    /usr/lib/libqrupdate.so.1
-    /usr/lib/libqrupdate.so.1.1
-    /usr/lib/librbio.so
-    /usr/lib/librbio.so.2
-    /usr/lib/librbio.so.2.2.6
-    /usr/lib/libspqr.so
-    /usr/lib/libspqr.so.2
-    /usr/lib/libspqr.so.2.0.9
-    /usr/lib/libsuitesparseconfig.so
-    /usr/lib/libsuitesparseconfig.so.5
-    /usr/lib/libsuitesparseconfig.so.5.4.0
-    /usr/lib/libumfpack.so
-    /usr/lib/libumfpack.so.5
-    /usr/lib/libumfpack.so.5.7.8
-    /usr/lib/octave
-    /usr/libexec/octave
-    /usr/share/applications/org.octave.Octave.desktop
-    /usr/share/icons/hicolor
-    /usr/share/info
-    /usr/share/man/man1
-    /usr/share/metainfo
-    /usr/share/octave
-
-%post
-
-    echo "deb mirror://mirrors.ubuntu.com/mirrors.txt bionic main universe" > /etc/apt/sources.list \
-    && apt-get update \
-    && apt-get upgrade \
-    && apt-get --no-install-recommends --yes install \
-      autoconf \
-      automake \
-      build-essential \
-      curl \
-      default-jre-headless \
-      gdb \
-      ghostscript \
-      gnuplot-x11 \
-      gfortran \
-      info \
-      less \
-      libcurl3-gnutls \
-      libfftw3-3 \
-      libgl2ps1.4 \
-      libglu1-mesa \
-      libgraphicsmagick++-q16-12 \
-      libhdf5-100 \
-      libqhull7 \
-      libreadline7 \
-      libtool \
-      locales \
-      texinfo \
-      unzip \
-      xz-utils \
-      zip \
-    && locale-gen en_US.UTF-8 \
-    && update-locale LANG=en_US.UTF-8 \
-    && apt-get clean \
-    && rm -rf \
-      /tmp/hsperfdata* \
-      /var/*/apt/*/partial \
-      /var/lib/apt/lists/* \
-      /var/log/apt/term*
+    apt-get remove \
+      qtbase5-dev \
+      qttools5-dev \
+      qttools5-dev-tools
+    apt-get clean
+    apt-get autoremove
 
 %runscript
-
-    octave-cli "$@"
+    octave "$@"
 
 %labels
-
     maintainer Kai T. Ohlhus <k.ohlhus@gmail.com>
     license GPL-3.0-or-later
     org.label-schema.version "VERSION"
@@ -232,7 +22,6 @@ Stage: final
     org.label-schema.vcs-url "https://github.com/siko1056/GNU-Octave-64-Singularity"
 
 %help
-
     GNU Octave is a high-level interpreted language, primarily intended for numerical computations.
     This is the Singularity image version of this software.
 
@@ -244,7 +33,7 @@ Stage: final
 
         singularity run gnu_octave_VERSION.sif --help
 
-    Copyright (C) 2019 John W. Eaton and others.
+    Copyright (C) 2020 John W. Eaton and others.
     This is free software; see the source code for copying conditions.
     There is ABSOLUTELY NO WARRANTY; not even for MERCHANTABILITY or
     FITNESS FOR A PARTICULAR PURPOSE.
