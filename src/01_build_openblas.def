@@ -5,8 +5,8 @@ From: 00_build_ubuntu.sif
     mkdir -p /tmp/build \
     && cd    /tmp/build \
     && wget "https://github.com/xianyi/OpenBLAS/archive/v0.3.8.zip" \
-    && unzip -q   v0.3.7.zip \
-    && cd OpenBLAS-0.3.7     \
+    && unzip -q   v0.3.8.zip \
+    && cd OpenBLAS-0.3.8     \
     && make -j4 BINARY=64 INTERFACE64=1 DYNAMIC_ARCH=1 CONSISTENT_FPCSR=1 \
     && make install PREFIX=/usr \
     && rm -rf /tmp/build
