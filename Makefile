@@ -62,7 +62,7 @@ $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).def: \
 
 $(BUILD_DIR)/%.sif: $(BUILD_DIR)/%.def | $(BUILD_DIR) $(LOG_DIR)
 	cd $(BUILD_DIR) \
-	  && sudo singularity build $(notdir $@) $(notdir $<) \
+	  && singularity build  $(notdir $@) $(notdir $<) \
 	  2>&1 | tee $(LOG_DIR)/$(notdir $@)-$(shell date +%F_%H-%M-%S).log.txt
 
 # Define dependencies for the Octave build preparation images.
