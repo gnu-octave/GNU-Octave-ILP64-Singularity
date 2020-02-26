@@ -2,10 +2,10 @@ Bootstrap: library
 From: ubuntu:18.04
 
 %post
-    echo "deb mirror://mirrors.ubuntu.com/mirrors.txt bionic main universe" > /etc/apt/sources.list \
-    && apt-get --yes update \
-    && apt-get --yes upgrade \
-    && apt-get --no-install-recommends --yes install \
+    echo "deb mirror://mirrors.ubuntu.com/mirrors.txt bionic main universe" > /etc/apt/sources.list
+    apt-get --yes update
+    apt-get --yes upgrade
+    apt-get --yes install \
       autoconf \
       automake \
       bison \
@@ -20,7 +20,9 @@ From: ubuntu:18.04
       gperf \
       gzip \
       icoutils \
+      less \
       libblas-dev \
+      libcanberra-gtk3-module \
       libcurl4-gnutls-dev \
       liblapack-dev \
       libpcre3-dev \
@@ -48,7 +50,7 @@ From: ubuntu:18.04
       llvm-dev \
       lpr \
       mercurial \
-      openjdk-8-jdk \
+      openjdk-11-jdk \
       perl \
       pkg-config \
       portaudio19-dev \
@@ -65,10 +67,6 @@ From: ubuntu:18.04
       unzip \
       wget \
       zlib1g-dev \
-      zip \
-    && apt-get clean \
-    && rm -rf \
-      /tmp/hsperfdata* \
-      /var/*/apt/*/partial \
-      /var/lib/apt/lists/* \
-      /var/log/apt/term*
+      zip
+    apt-get clean
+    apt-get autoremove
