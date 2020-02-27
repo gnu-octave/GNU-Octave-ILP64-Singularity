@@ -14,6 +14,8 @@ From: 06_build_octave_VERSION.sif
       qttools5-dev \
       qttools5-dev-tools
     apt-get --yes install \
+      fonts-ipafont-gothic \
+      fonts-noto-color-emoji \
       libcurl3-gnutls \
       libportaudio2 \
       libqt5network5 \
@@ -28,6 +30,9 @@ From: 06_build_octave_VERSION.sif
     apt-get --yes autoremove
     rm -Rf /var/lib/apt/lists/*
     rm -Rf /usr/share/doc
+
+%environment
+    export LC_ALL=C
 
 %runscript
     octave "$@"
