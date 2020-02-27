@@ -7,20 +7,25 @@ From: 06_build_octave_VERSION.sif
       flex \
       icoutils \
       libcurl4-gnutls-dev \
+      libreadline-dev \
+      libsndfile1-dev \
+      portaudio19-dev \
       qtbase5-dev \
       qttools5-dev \
       qttools5-dev-tools
     apt-get --yes install \
       libcurl3-gnutls \
+      libportaudio2 \
       libqt5network5 \
       libqt5printsupport5 \
       libqt5help5 \
       libqt5widgets5 \
       libqt5gui5 \
-      libqscintilla2-qt5-13
+      libqscintilla2-qt5-13 \
+      libreadline7 \
+      libsndfile1
     apt-get --yes clean
     apt-get --yes autoremove
-    apt list --installed > /usr/blub.txt
     rm -Rf /var/lib/apt/lists/*
     rm -Rf /usr/share/doc
 

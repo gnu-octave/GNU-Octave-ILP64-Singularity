@@ -9,20 +9,21 @@ From: ubuntu:18.04
       autoconf \
       automake \
       bison \
-      build-essential \
       clang \
       cmake \
+      dbus \
       epstool \
       flex \
+      g++ \
+      gcc \
       gfortran \
       git \
-      gnuplot-x11 \
+      gnuplot \
       gperf \
       gzip \
       icoutils \
       less \
       libblas-dev \
-      libcanberra-gtk3-module \
       libcurl4-gnutls-dev \
       liblapack-dev \
       libpcre3-dev \
@@ -48,6 +49,7 @@ From: ubuntu:18.04
       libtool \
       libxft-dev \
       lpr \
+      make \
       mercurial \
       openjdk-11-jdk \
       perl \
