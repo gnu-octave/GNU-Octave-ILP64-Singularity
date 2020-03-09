@@ -42,8 +42,8 @@ $(BUILD_DIR)/%.def: src/%.def | $(BUILD_DIR)
 # Specialization for the Octave build, insert the desired version and changes
 # the download URL for the latest stable release tarball.
 
-$(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).def: \
-	 src/06_build_octave_VERSION.def | $(BUILD_DIR)
+$(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).def: \
+	 src/07_build_octave_VERSION.def | $(BUILD_DIR)
 	cp $< $@
 	sed -i -e 's/VERSION/$(OCTAVE_VER)/g' $@
 
