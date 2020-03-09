@@ -72,7 +72,12 @@ $(BUILD_DIR)/02_build_suitesparse.sif: $(BUILD_DIR)/01_build_openblas.sif
 $(BUILD_DIR)/03_build_arpack_ng.sif:   $(BUILD_DIR)/02_build_suitesparse.sif
 $(BUILD_DIR)/04_build_qrupdate.sif:    $(BUILD_DIR)/03_build_arpack_ng.sif
 $(BUILD_DIR)/05_build_glpk.sif:        $(BUILD_DIR)/04_build_qrupdate.sif
-$(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/05_build_glpk.sif
+$(BUILD_DIR)/06_build_sundials.sif:    $(BUILD_DIR)/05_build_glpk.sif
+$(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).sif: \
+	                               $(BUILD_DIR)/06_build_sundials.sif
 $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/06_build_octave_$(OCTAVE_VER).sif
+	                               $(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).sif
+
+clean:
+	$(RM) -R $(BUILD_DIR)
+	mv $(LOG_DIR) $(LOG_DIR).old

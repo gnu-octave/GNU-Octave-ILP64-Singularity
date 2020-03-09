@@ -1,0 +1,29 @@
+Bootstrap: localimage
+From: 05_build_glpk.sif
+
+%post
+    mkdir -p /tmp/build \
+    && cd    /tmp/build \
+    && wget "https://computation.llnl.gov/projects/sundials/download/sundials-2.7.0.tar.gz" \
+    && tar -xf sundials-2.7.0.tar.gz \
+    && cd      sundials-2.7.0        \
+    && mkdir   build                 \
+    && cd      build                 \
+    && cmake \
+       -DEXAMPLES_ENABLE=OFF \
+       -DKLU_ENABLE=ON \
+       -DKLU_INCLUDE_DIR=/usr/include/suitesparse \
+       -DKLU_LIBRARY_DIR=/usr/lib \
+       -DSUITESPARSECONFIG_LIBRARY=/usr/lib/libsuitesparseconfig.so \
+       -DBUILD_ARKODE=OFF \
+       -DBUILD_CVODE=OFF \
+       -DBUILD_CVODES=OFF \
+       -DBUILD_IDA=ON \
+       -DBUILD_IDAS=OFF \
+       -DBUILD_KINSOL=OFF \
+       -DBUILD_CPODES=OFF \
+       -DCMAKE_INSTALL_PREFIX=/usr \
+       .. \
+    && make -j4     \
+    && make install \
+    && rm -rf /tmp/build
