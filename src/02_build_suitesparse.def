@@ -13,12 +13,12 @@ From: 01_build_openblas.sif
       BLAS=-lopenblas                          \
       UMFPACK_CONFIG=-D'LONGBLAS=long'         \
       CHOLMOD_CONFIG=-D'LONGBLAS=long'         \
-      LDFLAGS='-L/tmp/build/SuiteSparse-${SUITE_SPARSE_VERSION}/lib'
+      LDFLAGS='-L/tmp/build/SuiteSparse-'"${SUITE_SPARSE_VERSION}"'/lib'
     make install                               \
       INSTALL=/usr                             \
       INSTALL_INCLUDE=/usr/include/suitesparse \
       INSTALL_DOC=/tmp/build/doc               \
       LAPACK=                                  \
       BLAS=-lopenblas                          \
-      LDFLAGS='-L/tmp/build/SuiteSparse-${SUITE_SPARSE_VERSION}/lib'
+      LDFLAGS='-L/tmp/build/SuiteSparse-'"${SUITE_SPARSE_VERSION}"'/lib'
     rm -rf /tmp/build
