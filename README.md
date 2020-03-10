@@ -39,8 +39,67 @@ version is run by:
 
     singularity exec gnu_octave_5.2.0.sif octave-cli
 
-All currently available [GNU Octave][] versions are:
+Currently available [GNU Octave][] versions are:
 
 - `singularity pull library://siko1056/default/gnu_octave:5.2.0` (2020-01-31)
 - `singularity pull library://siko1056/default/gnu_octave:5.1.0` (2019-02-23)
 - `singularity pull library://siko1056/default/gnu_octave:4.4.1` (2018-08-09)
+
+
+## Deployment
+
+The [Singularity][] commands to run [GNU Octave][] are quite long and hard to
+remember.  In a default Linux installation of [GNU Octave][], usually the
+following command-line tools are provided:
+
+- `octave` (`--gui`)
+- `octave-cli`
+- `octave-config`
+- `mkoctfile`
+
+With little effort, these command-line tools can be provided by the single
+Octave [SIF-file][] as well.  Assume the image is deployed at some path
+`/path/to/gnu_octave_5.2.0.sif` where all intended users have read access to.
+With root privileges, create for example in `/usr/local/bin` the following
+script `octave` without any suffix:
+
+```bash
+#!/bin/bash
+
+singularity exec /path/to/gnu_octave_5.2.0.sif "${0##*/}" "$@"
+```
+
+and symbolic links to that script ([`ln -s`](https://linux.die.net/man/1/ln)):
+
+    /usr/local/bin/octave-cli    -> /usr/local/bin/octave
+    /usr/local/bin/octave-config -> /usr/local/bin/octave
+    /usr/local/bin/mkoctfile     -> /usr/local/bin/octave
+
+Without root privileges, the same can be done by each individual user in
+`$HOME/bin`.  This is the well-known [BusyBox approach][].  The script `octave`
+invokes [Singularity][] to execute the binary inside the Octave [SIF-file][],
+which is given by the respective call.  All further program arguments are
+forwarded to the respective internal binary.
+
+[BusyBox approach]: https://en.wikipedia.org/wiki/BusyBox#Single_binary
+
+
+## Desktop icon
+
+On a Linux desktop system a nice [GNU Octave][] icon can be added to
+`/usr/share/applications` with root privileges or to
+`$HOME/.local/share/applications` without root privileges.  The template for
+the desktop-file can be obtained from the official [GNU Octave][] repository:
+
+https://hg.savannah.gnu.org/hgweb/octave/file/release-5-2-0/etc/icons/org.octave.Octave.desktop.in
+
+Store this file as `org.octave.Octave.desktop` in the aforementioned path and
+replace `%OCTAVE_PREFIX%/bin/octave` by `octave`.  If no Octave icon is
+displayed, adapt the `Icon=octave` line, as well.
+
+
+## Development
+
+The following figure summarizes the build procedure.
+
+![build](doc/build.png)
