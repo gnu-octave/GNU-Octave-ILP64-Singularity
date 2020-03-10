@@ -103,3 +103,26 @@ displayed, adapt the `Icon=octave` line, as well.
 The following figure summarizes the build procedure.
 
 ![build](doc/build.png)
+
+To create the images yourself from this repository, the following requirements
+must be met:
+
+1. [Singularity][] must be installed
+2. root privileges are necessary on the build system
+3. a reasonable fast internet connection (many software downloads)
+4. about 10 GB of free hard disk space
+5. about 2 hours of time (of course system dependent)
+
+As root user just run `make` or `make OCTAVE_VER=5.2.0` with the desired
+[GNU Octave][] from this repository's root directory.
+
+
+## Development hints
+
+It is recommended to edit `src/gnu_octave_VERSION.def` to make changes to the
+final [SIF-file][] `gnu_octave_5.2.0.sif`.  For example:
+
+- Adding or removing Ubuntu packages to support Octave Forge packages
+- Make changes to the environment (variables)
+
+Rebuilding this final image is much less time consuming.
