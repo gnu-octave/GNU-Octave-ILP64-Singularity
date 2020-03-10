@@ -59,7 +59,6 @@ From: ubuntu:18.04
       qtbase5-dev \
       qttools5-dev \
       qttools5-dev-tools \
-      rsync \
       tar \
       texinfo \
       texlive \

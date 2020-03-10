@@ -12,7 +12,9 @@ From: 07_build_octave_VERSION.sif
       portaudio19-dev \
       qtbase5-dev \
       qttools5-dev \
-      qttools5-dev-tools
+      qttools5-dev-tools \
+      texlive \
+      texlive-generic-recommended
     apt-get --yes install \
       fonts-ipafont-gothic \
       fonts-noto-color-emoji \

@@ -2,15 +2,17 @@ Bootstrap: localimage
 From: 04_build_qrupdate.sif
 
 %post
-    mkdir -p /tmp/build \
-    && cd    /tmp/build \
-    && wget "https://ftp.gnu.org/gnu/glpk/glpk-4.65.tar.gz" \
-    && tar -xf glpk-4.65.tar.gz \
-    && cd      glpk-4.65        \
-    && ./configure --with-gmp        \
-                   --prefix=/usr     \
-                   --libdir=/usr/lib \
-    && make -j4     \
-    && make check   \
-    && make install \
-    && rm -rf /tmp/build
+    GLPK_VERSION=4.65
+    mkdir -p /tmp/build
+    cd       /tmp/build
+    wget "https://ftp.gnu.org/gnu/glpk/glpk-${GLPK_VERSION}.tar.gz"
+    tar -xf glpk-${GLPK_VERSION}.tar.gz
+    cd      glpk-${GLPK_VERSION}
+    ./configure         \
+      --with-gmp        \
+      --prefix=/usr     \
+      --libdir=/usr/lib
+    make -j4
+    make check
+    make install
+    rm -rf /tmp/build

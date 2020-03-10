@@ -2,22 +2,23 @@ Bootstrap: localimage
 From: 01_build_openblas.sif
 
 %post
-    mkdir -p /tmp/build \
-    && cd    /tmp/build \
-    && wget "https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v5.7.1.tar.gz" \
-    && tar -xf       v5.7.1.tar.gz \
-    && cd SuiteSparse-5.7.1 \
-    && make -j4 library \
-                LAPACK= \
-                BLAS=-lopenblas \
-                UMFPACK_CONFIG=-D'LONGBLAS=long' \
-                CHOLMOD_CONFIG=-D'LONGBLAS=long' \
-                LDFLAGS='-L/tmp/build/SuiteSparse-5.7.1/lib' \
-    && make install \
-            INSTALL=/usr \
-            INSTALL_INCLUDE=/usr/include/suitesparse \
-            INSTALL_DOC=/tmp/doc \
-            LAPACK= \
-            BLAS=-lopenblas \
-            LDFLAGS='-L/tmp/build/SuiteSparse-5.7.1/lib' \
-    && rm -rf /tmp/build
+    SUITE_SPARSE_VERSION=5.7.1
+    mkdir -p /tmp/build
+    cd       /tmp/build
+    wget "https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v${SUITE_SPARSE_VERSION}.tar.gz"
+    tar -xf       v${SUITE_SPARSE_VERSION}.tar.gz
+    cd SuiteSparse-${SUITE_SPARSE_VERSION}
+    make -j4 library                           \
+      LAPACK=                                  \
+      BLAS=-lopenblas                          \
+      UMFPACK_CONFIG=-D'LONGBLAS=long'         \
+      CHOLMOD_CONFIG=-D'LONGBLAS=long'         \
+      LDFLAGS='-L/tmp/build/SuiteSparse-${SUITE_SPARSE_VERSION}/lib'
+    make install                               \
+      INSTALL=/usr                             \
+      INSTALL_INCLUDE=/usr/include/suitesparse \
+      INSTALL_DOC=/tmp/build/doc               \
+      LAPACK=                                  \
+      BLAS=-lopenblas                          \
+      LDFLAGS='-L/tmp/build/SuiteSparse-${SUITE_SPARSE_VERSION}/lib'
+    rm -rf /tmp/build

@@ -2,17 +2,17 @@ Bootstrap: localimage
 From: 06_build_sundials.sif
 
 %post
-    mkdir -p /tmp/build \
-    && cd    /tmp/build \
-    && wget "https://ftpmirror.gnu.org/octave/octave-VERSION.tar.gz" \
-    && tar -xf octave-VERSION.tar.gz \
-    && cd      octave-VERSION        \
-    && ./configure                   \
-           F77_INTEGER_8_FLAG='-fdefault-integer-8' \
-           --prefix=/usr             \
-           --enable-64               \
-           --with-blas='-lopenblas'  \
-    && make -j4                      \
-    && make check                    \
-    && make install                  \
-    && rm -rf /tmp/build
+    mkdir -p /tmp/build
+    cd       /tmp/build
+    wget "https://ftpmirror.gnu.org/octave/octave-VERSION.tar.gz"
+    tar -xf octave-VERSION.tar.gz
+    cd      octave-VERSION
+    ./configure                                \
+      F77_INTEGER_8_FLAG='-fdefault-integer-8' \
+      --prefix=/usr                            \
+      --enable-64                              \
+      --with-blas='-lopenblas'
+    make -j4
+    make check
+    make install
+    rm -rf /tmp/build

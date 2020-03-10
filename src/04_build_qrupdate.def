@@ -2,25 +2,26 @@ Bootstrap: localimage
 From: 03_build_arpack_ng.sif
 
 %post
-    mkdir -p /tmp/build \
-    && cd    /tmp/build \
-    && wget "http://downloads.sourceforge.net/project/qrupdate/qrupdate/1.2/qrupdate-1.1.2.tar.gz" \
-    && tar -xf qrupdate-1.1.2.tar.gz \
-    && cd      qrupdate-1.1.2 \
-    && make -j4               \
-          PREFIX=/usr         \
-          LAPACK=""           \
-          BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/lib -fdefault-integer-8" \
-    && export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib \
-    && make test              \
-          PREFIX=/usr         \
-          LAPACK=""           \
-          BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/lib -fdefault-integer-8" \
-    && make install           \
-          PREFIX=/usr         \
-          LAPACK=""           \
-          BLAS="-lopenblas"   \
-          FFLAGS="-L/usr/lib -fdefault-integer-8" \
-    && rm -rf /tmp/build
+    QRUPDATE_VERSION=1.1.2
+    mkdir -p /tmp/build
+    cd       /tmp/build
+    wget "http://downloads.sourceforge.net/project/qrupdate/qrupdate/1.2/qrupdate-${QRUPDATE_VERSION}.tar.gz"
+    tar -xf qrupdate-${QRUPDATE_VERSION}.tar.gz
+    cd      qrupdate-${QRUPDATE_VERSION}
+    make -j4                                  \
+      PREFIX=/usr                             \
+      LAPACK=""                               \
+      BLAS="-lopenblas"                       \
+      FFLAGS="-L/usr/lib -fdefault-integer-8"
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+    make test                                 \
+      PREFIX=/usr                             \
+      LAPACK=""                               \
+      BLAS="-lopenblas"                       \
+      FFLAGS="-L/usr/lib -fdefault-integer-8"
+    make install                              \
+      PREFIX=/usr                             \
+      LAPACK=""                               \
+      BLAS="-lopenblas"                       \
+      FFLAGS="-L/usr/lib -fdefault-integer-8"
+    rm -rf /tmp/build
