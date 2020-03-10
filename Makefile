@@ -79,5 +79,6 @@ $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif: \
 	                               $(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).sif
 
 clean:
-	$(RM) -R $(BUILD_DIR)
-	mv $(LOG_DIR) $(LOG_DIR).old
+	mv $(LOG_DIR)/* $(LOG_DIR).old
+	$(RM) -R $(BUILD_DIR) $(LOG_DIR)
+
