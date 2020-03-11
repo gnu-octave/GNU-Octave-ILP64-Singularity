@@ -19,6 +19,7 @@ From: 07_build_octave_VERSION.sif
       fonts-ipafont-gothic \
       fonts-noto-color-emoji \
       libcurl3-gnutls \
+      libmpfr-dev \
       libportaudio2 \
       libqt5network5 \
       libqt5printsupport5 \
