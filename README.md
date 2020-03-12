@@ -1,7 +1,7 @@
 # GNU Octave ILP64 Singularity
 
 This projects purpose is to create a [Singularity][] image of [GNU Octave][]
-for high-performance computing.  [GNU Octave][] and all of it's dependent
+for high-performance computing (HPC).  [GNU Octave][] and all of it's dependent
 libraries are compiled to support [ILP64][].  That means the data types
 `int`, `long`, and pointers are assured to have the same size of 64-bit.
 This enables computations with matrices and vectors with more than
@@ -44,6 +44,28 @@ Currently available [GNU Octave][] versions are:
 - `singularity pull library://siko1056/default/gnu_octave:5.2.0` (2020-01-31)
 - `singularity pull library://siko1056/default/gnu_octave:5.1.0` (2019-02-23)
 - `singularity pull library://siko1056/default/gnu_octave:4.4.1` (2018-08-09)
+
+
+## Security and Limitations
+
+> For more detailed information read the Singularity documentation 
+> https://sylabs.io/guides/3.5/user-guide/security.html
+
+- [Singularity][] [SIF-file][]s are run with the privileges of the currently
+  active user `$USER`.  Becoming the root user is not possible.
+
+- Only the user's home directory `$HOME` and the temporary directory `/tmp` are
+  visible from the host system starting the [Singularity][] [SIF-file][].
+
+  This avoids conflicts with installed software on the host system.  On the
+  other hand this limits some of Octave's GUI features.  For HPC setups,
+  running the Octave CLI version mostly, these limitations are negligible.
+
+  Octave GUI features **not** available are:
+  
+  - Open URLs in the host system's web browser.  Copy and paste is necessary.
+  - Open files from Octave's file browser with external applications is not
+    possible (e.g. PDF documents).
 
 
 ## Deployment
