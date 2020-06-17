@@ -18,7 +18,9 @@ From: 07_build_octave_VERSION.sif
     apt-get --yes install \
       fonts-ipafont-gothic \
       fonts-noto-color-emoji \
+      info \
       libcurl3-gnutls \
+      libgnutls28-dev \
       libmpfr-dev \
       libportaudio2 \
       libqt5network5 \
@@ -28,7 +30,8 @@ From: 07_build_octave_VERSION.sif
       libqt5gui5 \
       libqscintilla2-qt5-13 \
       libreadline7 \
-      libsndfile1
+      libsndfile1 \
+      python3-sympy
     apt-get --yes clean
     apt-get --yes autoremove
     rm -Rf /var/lib/apt/lists/*
