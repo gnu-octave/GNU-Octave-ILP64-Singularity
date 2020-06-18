@@ -31,7 +31,11 @@ From: 07_build_octave_VERSION.sif
       libqscintilla2-qt5-13 \
       libreadline7 \
       libsndfile1 \
-      python3-sympy
+      python3-pip
+    # https://savannah.gnu.org/bugs/?58491
+    pip3 install sympy==1.5.1
+    apt-get --yes remove \
+      python3-pip
     apt-get --yes clean
     apt-get --yes autoremove
     rm -Rf /var/lib/apt/lists/*
