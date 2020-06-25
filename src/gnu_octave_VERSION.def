@@ -23,11 +23,12 @@ From: 07_build_octave_VERSION.sif
       libgnutls28-dev \
       libmpfr-dev \
       libportaudio2 \
+      libqt5gui5 \
+      libqt5help5 \
       libqt5network5 \
       libqt5printsupport5 \
-      libqt5help5 \
       libqt5widgets5 \
-      libqt5gui5 \
+      libqt5xml5 \
       libqscintilla2-qt5-13 \
       libreadline7 \
       libsndfile1 \
