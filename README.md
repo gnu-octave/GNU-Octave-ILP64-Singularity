@@ -13,15 +13,16 @@ This enables computations with matrices and vectors with more than
 
 > **No setup or compilation is required.**
 >
-> [GNU Octave][] is run from a single downloaded [SIF-file][] of about 800 MB.
+> [GNU Octave][] is run from a single [SIF-file][] of about 830 MB.
+>
+> See all available versions in the [Singularity Library][].
 
-[SIF-file]: https://sylabs.io/guides/3.5/user-guide/security.html#singularity-image-format-sif
+[SIF-file]: https://sylabs.io/guides/3.6/user-guide/security.html#singularity-image-format-sif
 
-The [GNU Octave][] images are available from the [Singularity Library][].
-They can be pulled (downloaded) from any system having [Singularity][]
+The images can be pulled (downloaded) from any system having [Singularity][]
 installed using the command:
 
-[Singularity Library]: https://cloud.sylabs.io/library/siko1056
+[Singularity Library]: https://cloud.sylabs.io/library/siko1056/default/gnu_octave
 
     singularity pull library://siko1056/default/gnu_octave:5.2.0
 
@@ -49,7 +50,7 @@ Currently available [GNU Octave][] versions are:
 ## Security and Limitations
 
 > For more detailed information read the Singularity documentation 
-> https://sylabs.io/guides/3.5/user-guide/security.html
+> https://sylabs.io/guides/3.6/user-guide/security.html
 
 - [Singularity][] [SIF-file][]s are run with the privileges of the currently
   active user `$USER`.  Becoming the root user is not possible.
