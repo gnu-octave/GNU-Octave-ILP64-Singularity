@@ -19,6 +19,11 @@ LOG_DIR   ?= $(shell pwd)/log
 
 all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
+allrecent: \
+  $(BUILD_DIR)/gnu_octave_5.2.0.sif \
+  $(BUILD_DIR)/gnu_octave_5.1.0.sif \
+  $(BUILD_DIR)/gnu_octave_4.4.1.sif
+
 ################################################################################
 # Directory creation rules.
 ################################################################################
@@ -42,8 +47,8 @@ $(BUILD_DIR)/%.def: src/%.def | $(BUILD_DIR)
 # Specialization for the Octave build, insert the desired version and changes
 # the download URL for the latest stable release tarball.
 
-$(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).def: \
-	src/07_build_octave_VERSION.def | $(BUILD_DIR)
+$(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).def: \
+	src/gnu_octave_build_VERSION.def | $(BUILD_DIR)
 	cp $< $@
 	sed -i -e 's/VERSION/$(OCTAVE_VER)/g' $@
 
@@ -65,6 +70,12 @@ $(BUILD_DIR)/%.sif: $(BUILD_DIR)/%.def | $(BUILD_DIR) $(LOG_DIR)
 	  && singularity build  $(notdir $@) $(notdir $<) \
 	  2>&1 | tee $(LOG_DIR)/$(notdir $@)-$(shell date +%F_%H-%M-%S).log.txt
 
+$(BUILD_DIR)/gnu_octave_build.sif: $(BUILD_DIR)/06_build_sundials.def \
+                                 | $(BUILD_DIR) $(LOG_DIR)
+	cd $(BUILD_DIR) \
+	  && singularity build  $(notdir $@) $(notdir $<) \
+	  2>&1 | tee $(LOG_DIR)/$(notdir $@)-$(shell date +%F_%H-%M-%S).log.txt
+
 # Define dependencies for the Octave build preparation images.
 
 $(BUILD_DIR)/01_build_openblas.sif:    $(BUILD_DIR)/00_build_ubuntu.sif
@@ -72,11 +83,12 @@ $(BUILD_DIR)/02_build_suitesparse.sif: $(BUILD_DIR)/01_build_openblas.sif
 $(BUILD_DIR)/03_build_arpack_ng.sif:   $(BUILD_DIR)/02_build_suitesparse.sif
 $(BUILD_DIR)/04_build_qrupdate.sif:    $(BUILD_DIR)/03_build_arpack_ng.sif
 $(BUILD_DIR)/05_build_glpk.sif:        $(BUILD_DIR)/04_build_qrupdate.sif
-$(BUILD_DIR)/06_build_sundials.sif:    $(BUILD_DIR)/05_build_glpk.sif
-$(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/06_build_sundials.sif
+$(BUILD_DIR)/gnu_octave_build.sif:     $(BUILD_DIR)/05_build_glpk.sif
+
+$(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).sif: \
+	                               $(BUILD_DIR)/gnu_octave_build.sif
 $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/07_build_octave_$(OCTAVE_VER).sif
+	                               $(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).sif
 
 clean:
 	mkdir -p        $(LOG_DIR).old
