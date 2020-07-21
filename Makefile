@@ -14,15 +14,54 @@ OCTAVE_VER ?= 5.2.0
 BUILD_DIR ?= $(shell pwd)/build
 LOG_DIR   ?= $(shell pwd)/log
 
+################################################################################
+# Common build targets
+################################################################################
+
 # Default target is to build the GNU Octave singularity image step by step to
 # decrease the build time in case of changes.
 
 all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
-allrecent: \
-  $(BUILD_DIR)/gnu_octave_5.2.0.sif \
-  $(BUILD_DIR)/gnu_octave_5.1.0.sif \
-  $(BUILD_DIR)/gnu_octave_4.4.1.sif
+# Convenience target to recursively build the latest Octave releases.
+
+all-recent: clean
+	$(MAKE) OCTAVE_VER=5.2.0
+	$(MAKE) OCTAVE_VER=5.1.0
+	$(MAKE) OCTAVE_VER=4.4.1
+
+clean:
+	mkdir -p        $(LOG_DIR).old
+	mv $(LOG_DIR)/* $(LOG_DIR).old
+	$(RM) -R $(BUILD_DIR) $(LOG_DIR)
+
+################################################################################
+# Singularity container library https://cloud.sylabs.io/
+################################################################################
+
+SINGULARITY_USER ?= siko1056
+SINGULARITY_COLLECTION ?= default
+SINGULARITY_LIB = library://$(SINGULARITY_USER)/$(SINGULARITY_COLLECTION)
+
+interactive-upload: $(BUILD_DIR)/gnu_octave_build.sif \
+                    $(BUILD_DIR)/gnu_octave_5.2.0.sif \
+                    $(BUILD_DIR)/gnu_octave_5.1.0.sif \
+                    $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	# Singularity images are build as root, thus change rights
+	sudo chown -R $(shell id -un):$(shell id -gn) *
+	singularity sign $(BUILD_DIR)/gnu_octave_build.sif
+	singularity sign $(BUILD_DIR)/gnu_octave_5.2.0.sif
+	singularity sign $(BUILD_DIR)/gnu_octave_5.1.0.sif
+	singularity sign $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	singularity remote login
+	singularity push     gnu_octave_build.sif \
+	  $(SINGULARITY_LIB)/gnu_octave_build:latest
+	singularity push     gnu_octave_5.2.0.sif \
+	  $(SINGULARITY_LIB)/gnu_octave:5.2.0/latest
+	singularity push     gnu_octave_5.1.0.sif \
+	  $(SINGULARITY_LIB)/gnu_octave:5.1.0
+	singularity push     gnu_octave_4.4.1.sif \
+	  $(SINGULARITY_LIB)/gnu_octave:4.4.1
 
 ################################################################################
 # Directory creation rules.
@@ -70,6 +109,8 @@ $(BUILD_DIR)/%.sif: $(BUILD_DIR)/%.def | $(BUILD_DIR) $(LOG_DIR)
 	  && singularity build  $(notdir $@) $(notdir $<) \
 	  2>&1 | tee $(LOG_DIR)/$(notdir $@)-$(shell date +%F_%H-%M-%S).log.txt
 
+# Specialization for GNU Octave build image.
+
 $(BUILD_DIR)/gnu_octave_build.sif: $(BUILD_DIR)/06_build_sundials.def \
                                  | $(BUILD_DIR) $(LOG_DIR)
 	cd $(BUILD_DIR) \
@@ -86,12 +127,6 @@ $(BUILD_DIR)/05_build_glpk.sif:        $(BUILD_DIR)/04_build_qrupdate.sif
 $(BUILD_DIR)/gnu_octave_build.sif:     $(BUILD_DIR)/05_build_glpk.sif
 
 $(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/gnu_octave_build.sif
+                                       $(BUILD_DIR)/gnu_octave_build.sif
 $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif: \
-	                               $(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).sif
-
-clean:
-	mkdir -p        $(LOG_DIR).old
-	mv $(LOG_DIR)/* $(LOG_DIR).old
-	$(RM) -R $(BUILD_DIR) $(LOG_DIR)
-
+                                       $(BUILD_DIR)/gnu_octave_build_$(OCTAVE_VER).sif
