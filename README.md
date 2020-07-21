@@ -49,21 +49,21 @@ Currently available [GNU Octave][] versions are:
 
 ## Security and Limitations
 
-> For more detailed information read the Singularity documentation 
+> For more detailed information read the Singularity documentation
 > https://sylabs.io/guides/3.6/user-guide/security.html
 
 - [Singularity][] [SIF-file][]s are run with the privileges of the currently
   active user `$USER`.  Becoming the root user is not possible.
 
-- Only the user's home directory `$HOME` and the temporary directory `/tmp` are
-  visible from the host system starting the [Singularity][] [SIF-file][].
+- Only the user's home directory `$HOME` and the temporary directory `/tmp`
+  are visible from the host system starting the [Singularity][] [SIF-file][].
 
   This avoids conflicts with installed software on the host system.  On the
   other hand this limits some of Octave's GUI features.  For HPC setups,
   running the Octave CLI version mostly, these limitations are negligible.
 
   Octave GUI features **not** available are:
-  
+
   - Open URLs in the host system's web browser.  Copy and paste is necessary.
   - Open files from Octave's file browser with external applications is not
     possible (e.g. PDF documents).
@@ -134,7 +134,7 @@ must be met:
 2. root privileges are necessary on the build system
 3. a reasonable fast internet connection (many software downloads)
 4. about 10 GB of free hard disk space
-5. about 2 hours of time (of course system dependent)
+5. about 2 hours of time (system dependent)
 
 As root user just run `make` or `make OCTAVE_VER=5.2.0` with the desired
 [GNU Octave][] from this repository's root directory.
@@ -148,4 +148,4 @@ final [SIF-file][] `gnu_octave_5.2.0.sif`.  For example:
 - Adding or removing Ubuntu packages to support Octave Forge packages
 - Make changes to the environment (variables)
 
-Rebuilding this final image is much less time consuming.
+Rebuilding this final image only takes a few minutes.
