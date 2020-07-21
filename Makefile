@@ -49,19 +49,25 @@ interactive-upload: $(BUILD_DIR)/gnu_octave_build.sif \
                     $(BUILD_DIR)/gnu_octave_4.4.1.sif
 	# Singularity images are build as root, thus change rights
 	sudo chown -R $(shell id -un):$(shell id -gn) *
-	singularity sign $(BUILD_DIR)/gnu_octave_build.sif
-	singularity sign $(BUILD_DIR)/gnu_octave_5.2.0.sif
-	singularity sign $(BUILD_DIR)/gnu_octave_5.1.0.sif
-	singularity sign $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_build.sif
+	singularity verify $(BUILD_DIR)/gnu_octave_build.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_5.2.0.sif
+	singularity verify $(BUILD_DIR)/gnu_octave_5.2.0.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_5.1.0.sif
+	singularity verify $(BUILD_DIR)/gnu_octave_5.1.0.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	singularity verify $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	touch token
+	cat   token
 	singularity remote login
-	singularity push     gnu_octave_build.sif \
-	  $(SINGULARITY_LIB)/gnu_octave_build:latest
-	singularity push     gnu_octave_5.2.0.sif \
-	  $(SINGULARITY_LIB)/gnu_octave:5.2.0/latest
-	singularity push     gnu_octave_5.1.0.sif \
-	  $(SINGULARITY_LIB)/gnu_octave:5.1.0
-	singularity push     gnu_octave_4.4.1.sif \
-	  $(SINGULARITY_LIB)/gnu_octave:4.4.1
+	singularity push $(BUILD_DIR)/gnu_octave_build.sif \
+	           $(SINGULARITY_LIB)/gnu_octave_build:latest
+	singularity push $(BUILD_DIR)/gnu_octave_5.2.0.sif \
+	           $(SINGULARITY_LIB)/gnu_octave:5.2.0/latest
+	singularity push $(BUILD_DIR)/gnu_octave_5.1.0.sif \
+	           $(SINGULARITY_LIB)/gnu_octave:5.1.0
+	singularity push $(BUILD_DIR)/gnu_octave_4.4.1.sif \
+	           $(SINGULARITY_LIB)/gnu_octave:4.4.1
 
 ################################################################################
 # Directory creation rules.
