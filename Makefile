@@ -9,10 +9,18 @@
 
 OCTAVE_VER ?= 5.2.0
 
-# Set the default build and log path.
+################################################################################
+# Directory creation rules.
+################################################################################
 
 BUILD_DIR ?= $(shell pwd)/build
 LOG_DIR   ?= $(shell pwd)/log
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(LOG_DIR):
+	mkdir -p $(LOG_DIR)
 
 ################################################################################
 # Common build targets
@@ -43,23 +51,21 @@ SINGULARITY_USER ?= siko1056
 SINGULARITY_COLLECTION ?= default
 SINGULARITY_LIB = library://$(SINGULARITY_USER)/$(SINGULARITY_COLLECTION)
 
-interactive-upload: $(BUILD_DIR)/gnu_octave_build.sif \
-                    $(BUILD_DIR)/gnu_octave_5.2.0.sif \
-                    $(BUILD_DIR)/gnu_octave_5.1.0.sif \
-                    $(BUILD_DIR)/gnu_octave_4.4.1.sif
-	# Singularity images are build as root, thus change rights
-	sudo chown -R $(shell id -un):$(shell id -gn) *
+interactive-upload:
+	# Check the signatures and sign if necessary
 	singularity verify $(BUILD_DIR)/gnu_octave_build.sif || \
-	  singularity sign $(BUILD_DIR)/gnu_octave_build.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_build.sif
 	singularity verify $(BUILD_DIR)/gnu_octave_5.2.0.sif || \
-	  singularity sign $(BUILD_DIR)/gnu_octave_5.2.0.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_5.2.0.sif
 	singularity verify $(BUILD_DIR)/gnu_octave_5.1.0.sif || \
-	  singularity sign $(BUILD_DIR)/gnu_octave_5.1.0.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_5.1.0.sif
 	singularity verify $(BUILD_DIR)/gnu_octave_4.4.1.sif || \
-	  singularity sign $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	singularity sign   $(BUILD_DIR)/gnu_octave_4.4.1.sif
+	# Display login token for interactive login
 	touch token
 	cat   token
 	singularity remote login
+	# Push all images in the cloud
 	singularity push $(BUILD_DIR)/gnu_octave_build.sif \
 	           $(SINGULARITY_LIB)/gnu_octave_build:latest
 	singularity push $(BUILD_DIR)/gnu_octave_4.4.1.sif \
@@ -68,16 +74,6 @@ interactive-upload: $(BUILD_DIR)/gnu_octave_build.sif \
 	           $(SINGULARITY_LIB)/gnu_octave:5.1.0
 	singularity push $(BUILD_DIR)/gnu_octave_5.2.0.sif \
 	           $(SINGULARITY_LIB)/gnu_octave:5.2.0
-
-################################################################################
-# Directory creation rules.
-################################################################################
-
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
-
-$(LOG_DIR):
-	mkdir -p $(LOG_DIR)
 
 ################################################################################
 # Singularity definition file rules and dependencies.
