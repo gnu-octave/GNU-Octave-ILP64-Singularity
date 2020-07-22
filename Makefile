@@ -25,7 +25,7 @@ all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
 # Convenience target to recursively build the latest Octave releases.
 
-all-recent: clean
+all-recent:
 	$(MAKE) OCTAVE_VER=5.2.0
 	$(MAKE) OCTAVE_VER=5.1.0
 	$(MAKE) OCTAVE_VER=4.4.1
