@@ -29,7 +29,8 @@ $(LOG_DIR):
 # Default target is to build the GNU Octave singularity image step by step to
 # decrease the build time in case of changes.
 
-all: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
+.DEFAULT_GOAL := default
+default: $(BUILD_DIR)/gnu_octave_$(OCTAVE_VER).sif
 
 # Convenience target to recursively build the latest Octave releases.
 
