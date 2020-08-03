@@ -40,8 +40,10 @@ all-recent:
 	$(MAKE) OCTAVE_VER=4.4.1
 
 clean:
-	mkdir -p        $(LOG_DIR).old
-	mv $(LOG_DIR)/* $(LOG_DIR).old
+	if [ -d "$(LOG_DIR)" ]; then \
+	  mkdir -p        $(LOG_DIR).old; \
+	  mv $(LOG_DIR)/* $(LOG_DIR).old; \
+	fi
 	$(RM) -R $(BUILD_DIR) $(LOG_DIR)
 
 ################################################################################
