@@ -2,7 +2,7 @@ Bootstrap: localimage
 From: 00_build_ubuntu.sif
 
 %post
-    OPENBLAS_VERSION=0.3.10
+    OPENBLAS_VERSION=0.3.12
     mkdir -p /tmp/build
     cd       /tmp/build
     wget "https://github.com/xianyi/OpenBLAS/archive/v${OPENBLAS_VERSION}.zip"

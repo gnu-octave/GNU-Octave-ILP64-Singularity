@@ -2,7 +2,7 @@ Bootstrap: localimage
 From: 01_build_openblas.sif
 
 %post
-    SUITE_SPARSE_VERSION=5.7.2
+    SUITE_SPARSE_VERSION=5.8.1
     mkdir -p /tmp/build
     cd       /tmp/build
     wget "https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v${SUITE_SPARSE_VERSION}.tar.gz"
